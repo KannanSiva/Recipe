@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -42,7 +44,8 @@ public class Recipe {
 	private Notes notes;
 	
 	@ManyToMany
-	private Set<Category> category;
+	@JoinTable(name = "recipe_category",joinColumns = @JoinColumn(name="recipe_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
+	private Set<Category> categories;
 	
 	
 	public Long getId() {
@@ -118,10 +121,10 @@ public class Recipe {
 		this.difficulty = difficulty;
 	}
 	public Set<Category> getCategory() {
-		return category;
+		return categories;
 	}
-	public void setCategory(Set<Category> category) {
-		this.category = category;
+	public void setCategory(Set<Category> categories) {
+		this.categories = categories;
 	}
 	
 	
